@@ -1,0 +1,7 @@
+[
+  {"id":"201","name":"Sancheti Hospital","lat":18.5283,"lng":73.8554,"capabilities":["EMERGENCY_DEPARTMENT","TRAUMA_UNIT"]},
+  {"id":"202","name":"Ruby Hall Clinic","lat":18.5280,"lng":73.8767,"capabilities":["EMERGENCY_DEPARTMENT","CARDIAC_UNIT","ICU"]},
+  {"id":"203","name":"Jehangir Hospital","lat":18.5273,"lng":73.8732,"capabilities":["EMERGENCY_DEPARTMENT","NEONATAL_UNIT"]},
+  {"id":"204","name":"KEM Hospital","lat":18.5220,"lng":73.8680,"capabilities":["EMERGENCY_DEPARTMENT","ICU"]},
+  {"id":"205","name":"Sassoon General","lat":18.5265,"lng":73.8730,"capabilities":["EMERGENCY_DEPARTMENT","TRAUMA_UNIT","CARDIAC_UNIT","ICU","NEONATAL_UNIT"]}
+]

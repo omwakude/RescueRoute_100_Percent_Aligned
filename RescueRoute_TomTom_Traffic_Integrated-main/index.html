@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RescueRoute Dispatcher</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 40px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+        h1 { color: #d32f2f; text-align: center; margin-top: 0; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; color: #333; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; padding: 15px; background-color: #d32f2f; color: white; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
+        button:hover { background-color: #b71c1c; }
+        
+        #results { margin-top: 30px; padding: 20px; background-color: #e8f5e9; border: 1px solid #c8e6c9; border-radius: 8px; display: none; }
+        .result-item { margin-bottom: 10px; font-size: 16px; }
+        .highlight { font-weight: bold; color: #2e7d32; }
+        pre { background: #333; color: #fff; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 14px; }
+        .error { background-color: #ffebee; border-color: #ffcdd2; color: #c62828; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🚑 RescueRoute Dispatch</h1>
+    
+    <form id="emergencyForm">
+        <div class="form-group">
+            <label>Emergency Type</label>
+            <select id="emergency_type">
+                <option value="Cardiac Arrest">Cardiac Arrest</option>
+                <option value="Severe Trauma">Severe Trauma</option>
+                <option value="Fire Injury">Fire Injury</option>
+            </select>
+        </div>
+        
+        <!-- Defaulted to a random location in Pune -->
+        <div class="form-group">
+            <label>Latitude</label>
+            <input type="number" step="any" id="lat" value="18.5295" required>
+        </div>
+        <div class="form-group">
+            <label>Longitude</label>
+            <input type="number" step="any" id="lng" value="73.8560" required>
+        </div>
+
+        <button type="submit">Dispatch Best Ambulance</button>
+    </form>
+
+    <div id="results">
+        <h3 style="margin-top:0;">✅ Dispatch Plan Confirmed</h3>
+        <div class="result-item">🚑 Assigned Ambulance: <span id="res_amb" class="highlight"></span></div>
+        <div class="result-item">⏱️ Pickup ETA: <span id="res_pickup" class="highlight"></span> mins</div>
+        <div class="result-item">🏥 Target Hospital: <span id="res_hosp" class="highlight"></span></div>
+        <div class="result-item">⏳ Total Mission Time: <span id="res_total" class="highlight"></span> mins</div>
+        
+        <h4>Raw JSON Response:</h4>
+        <pre id="raw_json"></pre>
+    </div>
+</div>
+
+<script>
+    document.getElementById('emergencyForm').addEventListener('submit', async (e) => {
+        e.preventDefault(); // Stop page from refreshing
+        
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.style.display = 'none'; // Hide results while loading
+        
+        // 1. Gather data from the form
+        const requestData = {
+            emergency_id: "EMG-" + Math.floor(Math.random() * 10000), // Generate random ID
+            emergency_type: document.getElementById('emergency_type').value,
+            location_coordinates: {
+                lat: parseFloat(document.getElementById('lat').value),
+                lng: parseFloat(document.getElementById('lng').value)
+            }
+        };
+
+        try {
+            // 2. Send POST request to your backend
+            const response = await fetch('http://localhost:3000/api/emergency', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestData)
+            });
+
+            const data = await response.json();
+
+            // 3. Display the results
+            resultsDiv.style.display = 'block';
+            
+            if (response.ok) {
+                resultsDiv.className = '';
+                document.getElementById('res_amb').textContent = data.dispatch_plan.phase_1_pickup.assigned_ambulance;
+                document.getElementById('res_pickup').textContent = data.dispatch_plan.phase_1_pickup.eta_minutes;
+                document.getElementById('res_hosp').textContent = data.dispatch_plan.phase_2_dropoff.target_hospital;
+                document.getElementById('res_total').textContent = data.dispatch_plan.total_mission_time;
+                document.getElementById('raw_json').textContent = JSON.stringify(data, null, 2);
+            } else {
+                // Handle backend errors (like "No ambulances available")
+                resultsDiv.className = 'error';
+                resultsDiv.innerHTML = `<h3>❌ Error</h3><p>${data.error || 'Failed to dispatch'}</p>`;
+            }
+
+        } catch (error) {
+            alert("Error connecting to backend. Is node server.js running?");
+            console.error(error);
+        }
+    });
+</script>
+
+</body>
+</html>

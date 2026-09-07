@@ -1,0 +1,111 @@
+body {
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.app-bg {
+    background: #f4f6f9;
+    min-height: 100vh;
+}
+#map {
+    height: 430px;
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid #dee2e6;
+}
+.card {
+    border-radius: 16px;
+}
+.live-dot {
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    border-radius: 50%;
+    background: #20c997;
+    box-shadow: 0 0 0 5px rgba(32,201,151,.12);
+}
+.emergency-card {
+    cursor: pointer;
+    transition: .15s;
+}
+.emergency-card:hover, .emergency-card.selected {
+    background: #fff4f4;
+    border-left: 4px solid #dc3545;
+}
+.ambulance-card {
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: .15s;
+}
+.ambulance-card:hover, .ambulance-card.selected {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220,53,69,.08);
+}
+.recommended {
+    border-color: #198754;
+}
+.command-bg {
+    background: #111827;
+    min-height: 100vh;
+    color: #f8f9fa;
+}
+.stat-card {
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 14px;
+    padding: 16px;
+    min-height: 105px;
+}
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+}
+.map-shell {
+    position: relative;
+    background: #1f2937;
+    padding: 8px;
+    border-radius: 14px;
+}
+#commandMap {
+    height: calc(100vh - 245px);
+    min-height: 520px;
+    border-radius: 10px;
+}
+.map-legend {
+    position: absolute;
+    z-index: 1000;
+    bottom: 18px;
+    left: 18px;
+    background: rgba(17,24,39,.93);
+    padding: 9px 12px;
+    border-radius: 9px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 12px;
+}
+.side-panel {
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 14px;
+    padding: 15px;
+    height: calc(100vh - 245px);
+    min-height: 520px;
+    overflow: auto;
+}
+.activity-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.activity {
+    background: #111827;
+    border: 1px solid #374151;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 13px;
+}
+.marker-label {
+    font-weight: 800;
+}

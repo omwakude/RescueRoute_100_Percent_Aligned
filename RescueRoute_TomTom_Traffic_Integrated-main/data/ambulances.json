@@ -1,0 +1,122 @@
+[
+  {
+    "id": "AMB-01",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.5285,
+    "lng": 73.855,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-02",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.52855,
+    "lng": 73.8551,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-03",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.5286,
+    "lng": 73.85515,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-04",
+    "type": "ICU",
+    "status": "BUSY",
+    "lat": 18.529,
+    "lng": 73.845,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-05",
+    "type": "Neonatal",
+    "status": "AVAILABLE",
+    "lat": 18.52865,
+    "lng": 73.8552,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-06",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.5287,
+    "lng": 73.85525,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-07",
+    "type": "Advanced",
+    "status": "BUSY",
+    "lat": 18.532,
+    "lng": 73.865,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-08",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.5265,
+    "lng": 73.858,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-09",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.52875,
+    "lng": 73.8553,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-10",
+    "type": "Neonatal",
+    "status": "AVAILABLE",
+    "lat": 18.5288,
+    "lng": 73.85535,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  }
+]
