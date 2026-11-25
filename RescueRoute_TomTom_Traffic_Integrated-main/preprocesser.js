@@ -5,9 +5,9 @@ function getDistance(lat1, lon1, lat2, lon2) {
     const R = 6371000; // Earth radius in meters
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = 
+    const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
         Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
@@ -32,8 +32,8 @@ geojson.features.forEach(feature => {
         for (let i = 0; i < coords.length - 1; i++) {
             const lon1 = coords[i][0];
             const lat1 = coords[i][1];
-            const lon2 = coords[i+1][0];
-            const lat2 = coords[i+1][1];
+            const lon2 = coords[i + 1][0];
+            const lat2 = coords[i + 1][1];
 
             // Create unique keys for each intersection dot
             const node1Key = `${lat1.toFixed(5)},${lon1.toFixed(5)}`;
@@ -46,8 +46,9 @@ geojson.features.forEach(feature => {
             const destId = nodesMap.get(node2Key);
 
             const distanceMeters = getDistance(lat1, lon1, lat2, lon2);
-            let timeMins = Math.ceil(distanceMeters / speedMetersPerMinute);
-            if (timeMins < 1) timeMins = 1; // Minimum 1 minute cap
+            // Fractional minutes at 30 km/h (500 m/min), floored at 0.02 min (1.2s)
+            const rawTimeMins = distanceMeters / speedMetersPerMinute;
+            const timeMins = Number(Math.max(0.02, rawTimeMins).toFixed(4));
 
             // Add forward edge
             edges.push({
@@ -61,7 +62,7 @@ geojson.features.forEach(feature => {
 
             // Check if road is one-way
             const isOneway = feature.properties && (feature.properties.oneway === 'yes' || feature.properties.oneway === 'true');
-            
+
             // If two-way, add the reverse edge as well
             if (!isOneway) {
                 edges.push({

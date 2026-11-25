@@ -67,12 +67,15 @@ class Graph {
         const edge = this.getEdge(source, destination);
         if (!edge) return false;
 
-        edge.trafficMultiplier = Number.isFinite(multiplier) && multiplier > 0
-            ? multiplier
+        const safeMultiplier = Number.isFinite(multiplier) && multiplier > 0
+            ? Math.min(multiplier, 2.5)
             : 1;
-        edge.time = edge.baseTime * edge.trafficMultiplier;
-        edge.traffic = trafficLevel;
-        edge.status = edge.manualBlocked || roadClosure ? 1 : 0;
+        const closureFactor = roadClosure ? 1.5 : 1;
+
+        edge.trafficMultiplier = safeMultiplier;
+        edge.time = edge.baseTime * edge.trafficMultiplier * closureFactor;
+        edge.traffic = roadClosure ? Math.max(trafficLevel, 3) : trafficLevel;
+        edge.status = edge.manualBlocked ? 1 : 0;
         edge.trafficSource = trafficSource;
 
         return true;
@@ -89,7 +92,6 @@ class Graph {
             }
         }
     }
-
 
     blockRoad(source, destination) {
         const edge = this.getEdge(source, destination);
@@ -165,6 +167,46 @@ class Graph {
             path: times[endNode] === Infinity
                 ? []
                 : this.buildPath(backtrace, endNode)
+        };
+    }
+
+    auditRouteBaseTime(path = []) {
+        if (!Array.isArray(path) || path.length < 2) {
+            return {
+                hops: 0,
+                distanceMeters: 0,
+                baseTimeMins: 0,
+                currentTimeMins: 0,
+                flooredHops: 0,
+                impliedSpeedKmph: 0
+            };
+        }
+
+        let distanceMeters = 0;
+        let baseTimeMins = 0;
+        let currentTimeMins = 0;
+        let flooredHops = 0;
+
+        for (let i = 0; i < path.length - 1; i++) {
+            const edge = this.getEdge(path[i], path[i + 1]);
+            if (!edge) continue;
+            distanceMeters += Number(edge.distance || 0);
+            baseTimeMins += Number(edge.baseTime || 0);
+            currentTimeMins += Number(edge.time || 0);
+            if (Number(edge.baseTime) === 0.02) flooredHops++;
+        }
+
+        const impliedSpeedKmph = baseTimeMins > 0
+            ? ((distanceMeters / 1000) / (baseTimeMins / 60))
+            : 0;
+
+        return {
+            hops: path.length - 1,
+            distanceMeters: Math.round(distanceMeters),
+            baseTimeMins: Number(baseTimeMins.toFixed(2)),
+            currentTimeMins: Number(currentTimeMins.toFixed(2)),
+            flooredHops,
+            impliedSpeedKmph: Number(impliedSpeedKmph.toFixed(2))
         };
     }
 

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RescueRoute — Full-System Functional & 100-Coordinate Stress Suite</title>
+  <link rel="icon" href="data:," />
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    :root {
+      --bg: #080d16;
+      --panel: #101827;
+      --panel-2: #162135;
+      --border: #25344f;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --pass: #22c55e;
+      --fail: #ef4444;
+      --warn: #f59e0b;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.45;
+    }
+    header {
+      padding: 14px 20px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    header h1 { margin: 0; font-size: 17px; }
+    .sub { font-size: 12px; color: var(--muted); }
+    .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    input, select, button {
+      background: var(--panel-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    button { cursor: pointer; }
+    button:hover:not(:disabled) { border-color: var(--accent); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    button.primary { background: #0284c7; border-color: #0ea5e9; color: #fff; }
+    button.danger { background: #7f1d1d; border-color: #dc2626; }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      padding: 14px 20px 0;
+    }
+    .kpi {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .kpi-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+    .kpi-val { font-size: 20px; font-weight: 700; font-family: var(--mono); margin-top: 3px; }
+    .kpi-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 14px 20px 20px;
+    }
+    @media (max-width: 1000px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 0;
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .full { grid-column: 1 / -1; }
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--panel-2);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #0284c7, #22c55e);
+      transition: width 0.15s ease;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: left; }
+    th { color: var(--muted); position: sticky; top: 0; background: var(--panel); }
+    .scroll-table { max-height: 310px; overflow: auto; }
+    .tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 11px;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+    }
+    .pass { color: var(--pass); border-color: rgba(34, 197, 94, 0.45); }
+    .fail { color: var(--fail); border-color: rgba(239, 68, 68, 0.45); }
+    .log-box {
+      background: #050911;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      font-family: var(--mono);
+      font-size: 11px;
+      height: 240px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>RescueRoute — Full-System Functional, 100-Coordinate & Dispatch Automation Suite</h1>
+      <div class="sub">Automated functional validation across 100 Pune coordinates, all 6 emergency types (0–5), priority queue dispatch, mission lifecycle, road blocks & performance telemetry</div>
+    </div>
+    <div class="controls">
+      <label style="font-size:11px;color:var(--muted);">Coords:
+        <input id="coordCount" type="number" min="5" max="200" value="100" style="width:68px;" />
+      </label>
+      <label style="font-size:11px;color:var(--muted);">Mode:
+        <select id="execMode">
+          <option value="dispatch_complete">Register -> Priority Dispatch -> Wait Mission Complete</option>
+          <option value="dispatch_cancel">Register -> Priority Dispatch -> Immediate Cancel (Fast)</option>
+          <option value="register_cancel">Register -> Inspect ETA -> Cancel (No Dispatch)</option>
+        </select>
+      </label>
+      <button id="btnRunMaster" class="primary" onclick="runMasterSystemSuite()">Run Full 100-Point System Test</button>
+      <button id="btnStop" class="danger" onclick="abortRequested = true" disabled>Stop</button>
+      <button onclick="resetAllMetrics()">Reset</button>
+    </div>
+  </header>
+
+  <section class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Progress</div>
+      <div id="kpiProgress" class="kpi-val">0 / 0</div>
+      <div id="kpiStatus" class="kpi-sub">Idle</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Functional Assertions</div>
+      <div id="kpiAssertions" class="kpi-val">0 PASS / 0 FAIL</div>
+      <div id="kpiSuccessRate" class="kpi-sub">Success rate: -</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Avg Ambulance ETA</div>
+      <div id="kpiAvgEta" class="kpi-val">- min</div>
+      <div id="kpiEtaRange" class="kpi-sub">Min: - | Max: -</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Avg Implied Speed</div>
+      <div id="kpiAvgSpeed" class="kpi-val">- km/h</div>
+      <div id="kpiSpeedNote" class="kpi-sub">Target baseline: ~30 km/h</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">API Latency (Avg / P95)</div>
+      <div id="kpiLatency" class="kpi-val">- ms</div>
+      <div id="kpiThroughput" class="kpi-sub">Throughput: - req/s</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Fleet & History</div>
+      <div id="kpiFleet" class="kpi-val">- / -</div>
+      <div id="kpiHistory" class="kpi-sub">Archived missions: -</div>
+    </div>
+  </section>
+
+  <div style="padding:10px 20px 0;">
+    <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+  </div>
+
+  <main class="main-grid">
+    <section class="card">
+      <h2>
+        <span>1. End-to-End Functional Scenarios</span>
+        <button onclick="runFunctionalScenariosOnly()" style="padding:4px 8px;font-size:11px;">Run Scenarios Only</button>
+      </h2>
+      <div class="scroll-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Result</th>
+              <th>Latency</th>
+              <th>Verification Detail</th>
+            </tr>
+          </thead>
+          <tbody id="scenarioTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span>2. Emergency Type Coverage (Types 0–5)</span></h2>
+      <div class="scroll-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Code & Type</th>
+              <th>Priority</th>
+              <th>Tested</th>
+              <th>Avg Amb ETA</th>
+              <th>Avg Hosp Time</th>
+              <th>Avg Speed</th>
+            </tr>
+          </thead>
+          <tbody id="typeStatsBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card full">
+      <h2>
+        <span>3. Per-Coordinate Execution & ETA Audit Log</span>
+        <span id="tableCountBadge" class="tag">0 rows</span>
+      </h2>
+      <div class="scroll-table" style="max-height:290px;">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Coordinates (Lat, Lng)</th>
+              <th>Type</th>
+              <th>Node</th>
+              <th>Top Amb</th>
+              <th>Amb ETA</th>
+              <th>Amb Dist</th>
+              <th>Speed</th>
+              <th>Top Hospital</th>
+              <th>Hosp Time</th>
+              <th>Lifecycle</th>
+              <th>Latency</th>
+            </tr>
+          </thead>
+          <tbody id="coordTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card full">
+      <h2>
+        <span>4. Live Telemetry & Socket.IO Stream</span>
+        <button onclick="document.getElementById('sysLog').textContent=''" style="padding:4px 8px;font-size:11px;">Clear</button>
+      </h2>
+      <div id="sysLog" class="log-box">Ready. Make sure RescueRoute is running on http://localhost:3000 and open http://localhost:3000/test.html</div>
+    </section>
+  </main>
+
+  <script>
+    let abortRequested = false;
+
+    const API_BASE = (window.location.port === '5500') ? 'http://localhost:3000' : '';
+
+    const TYPE_META = [
+      { code: 0, name: 'Minor Injury', priority: 3 },
+      { code: 1, name: 'Serious Injury', priority: 6 },
+      { code: 2, name: 'Cardiac', priority: 9 },
+      { code: 3, name: 'Neonatal', priority: 8 },
+      { code: 4, name: 'Trauma', priority: 8 },
+      { code: 5, name: 'Critical', priority: 10 }
+    ];
+
+    const PUNE_ANCHORS = [
+      { lat: 18.5283, lng: 73.8554, label: 'Sancheti / Shivajinagar' },
+      { lat: 18.5280, lng: 73.8767, label: 'Ruby Hall / Koregaon Rd' },
+      { lat: 18.5273, lng: 73.8732, label: 'Jehangir / Sassoon Rd' },
+      { lat: 18.5220, lng: 73.8680, label: 'KEM / Rasta Peth' },
+      { lat: 18.5265, lng: 73.8730, label: 'Sassoon General' },
+      { lat: 18.5302, lng: 73.8550, label: 'Shivajinagar North' },
+      { lat: 18.5213, lng: 73.8666, label: 'Rasta Peth South' },
+      { lat: 18.5275, lng: 73.8744, label: 'Bund Garden / Station' },
+      { lat: 18.5248, lng: 73.8730, label: 'Camp West' },
+      { lat: 18.5262, lng: 73.8563, label: 'JM / Deccan Edge' }
+    ];
+
+    const metrics = {
+      pass: 0,
+      fail: 0,
+      etas: [],
+      speeds: [],
+      latencies: [],
+      byType: {}
+    };
+
+    function logSys(msg) {
+      const box = document.getElementById('sysLog');
+      const ts = new Date().toISOString().split('T')[1].slice(0, 12);
+      box.textContent = `[${ts}] ${msg}\n` + box.textContent;
+    }
+
+    async function api(url, method = 'GET', body = null) {
+      const opts = { method, headers: { 'Content-Type': 'application/json' } };
+      if (body !== null) opts.body = JSON.stringify(body);
+      const t0 = performance.now();
+      const res = await fetch(`${API_BASE}${url}`, opts);
+      const ms = Math.round(performance.now() - t0);
+      const data = await res.json().catch(() => ({}));
+      metrics.latencies.push(ms);
+      if (!res.ok) {
+        const err = new Error(data.error || `HTTP ${res.status}`);
+        err.status = res.status;
+        err.data = data;
+        err.ms = ms;
+        throw err;
+      }
+      return { data, ms };
+    }
+
+    function generatePuneCoordinates(count) {
+      const coords = [];
+      for (let i = 0; i < count; i++) {
+        const anchor = PUNE_ANCHORS[i % PUNE_ANCHORS.length];
+        const ring = Math.floor(i / PUNE_ANCHORS.length);
+        const angle = (i * 137.5 * Math.PI) / 180;
+        const radius = Math.min(0.0018, 0.00018 * (ring + 1));
+        const lat = Number((anchor.lat + Math.cos(angle) * radius).toFixed(6));
+        const lng = Number((anchor.lng + Math.sin(angle) * radius).toFixed(6));
+        coords.push({
+          index: i + 1,
+          lat,
+          lng,
+          area: anchor.label,
+          typeCode: i % 6
+        });
+      }
+      return coords;
+    }
+
+    function resetAllMetrics() {
+      metrics.pass = 0;
+      metrics.fail = 0;
+      metrics.etas = [];
+      metrics.speeds = [];
+      metrics.latencies = [];
+      metrics.byType = {};
+      TYPE_META.forEach(t => {
+        metrics.byType[t.code] = { count: 0, etas: [], hospTimes: [], speeds: [] };
+      });
+      document.getElementById('scenarioTableBody').innerHTML = '';
+      document.getElementById('coordTableBody').innerHTML = '';
+      document.getElementById('tableCountBadge').textContent = '0 rows';
+      document.getElementById('progressFill').style.width = '0%';
+      updateKpis(0, 0, 'Reset', 0);
+      renderTypeStatsTable();
+    }
+
+    function addScenarioResult(name, passed, ms, detail) {
+      if (passed) metrics.pass++; else metrics.fail++;
+      const tbody = document.getElementById('scenarioTableBody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${name}</td>
+        <td><span class="tag ${passed ? 'pass' : 'fail'}">${passed ? 'PASS' : 'FAIL'}</span></td>
+        <td>${ms} ms</td>
+        <td>${detail}</td>
+      `;
+      tbody.appendChild(tr);
+    }
+
+    function addCoordRow(row) {
+      const tbody = document.getElementById('coordTableBody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${row.index}</td>
+        <td><code>${row.lat}, ${row.lng}</code></td>
+        <td>${row.typeName}</td>
+        <td><code>${row.node || '-'}</code></td>
+        <td>${row.ambId || '-'}</td>
+        <td><strong>${row.ambEta !== null ? row.ambEta + 'm' : '-'}</strong></td>
+        <td>${row.ambDist !== null ? row.ambDist + 'km' : '-'}</td>
+        <td>${row.speed !== null ? row.speed + ' km/h' : '-'}</td>
+        <td>${row.hospName || '-'}</td>
+        <td>${row.hospTime !== null ? row.hospTime + 'm' : '-'}</td>
+        <td><span class="tag ${row.ok ? 'pass' : 'fail'}">${row.lifecycle}</span></td>
+        <td>${row.ms} ms</td>
+      `;
+      tbody.prepend(tr);
+      document.getElementById('tableCountBadge').textContent = `${tbody.children.length} rows`;
+    }
+
+    function renderTypeStatsTable() {
+      const tbody = document.getElementById('typeStatsBody');
+      tbody.innerHTML = '';
+      for (const t of TYPE_META) {
+        const bucket = metrics.byType[t.code] || { count: 0, etas: [], hospTimes: [], speeds: [] };
+        const avgEta = bucket.etas.length ? (bucket.etas.reduce((a, b) => a + b, 0) / bucket.etas.length).toFixed(2) + ' m' : '-';
+        const avgHosp = bucket.hospTimes.length ? (bucket.hospTimes.reduce((a, b) => a + b, 0) / bucket.hospTimes.length).toFixed(2) + ' m' : '-';
+        const avgSpd = bucket.speeds.length ? (bucket.speeds.reduce((a, b) => a + b, 0) / bucket.speeds.length).toFixed(1) + ' km/h' : '-';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${t.code}</strong> — ${t.name}</td>
+          <td>${t.priority}</td>
+          <td>${bucket.count}</td>
+          <td>${avgEta}</td>
+          <td>${avgHosp}</td>
+          <td>${avgSpd}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    function updateKpis(done, total, statusText, elapsedSec) {
+      document.getElementById('kpiProgress').textContent = `${done} / ${total}`;
+      document.getElementById('kpiStatus').textContent = statusText;
+      if (total > 0) {
+        document.getElementById('progressFill').style.width = `${Math.round((done / total) * 100)}%`;
+      }
+
+      const totalAssertions = metrics.pass + metrics.fail;
+      const rate = totalAssertions ? ((metrics.pass / totalAssertions) * 100).toFixed(1) + '%' : '-';
+      document.getElementById('kpiAssertions').textContent = `${metrics.pass} PASS / ${metrics.fail} FAIL`;
+      document.getElementById('kpiSuccessRate').textContent = `Success rate: ${rate}`;
+
+      if (metrics.etas.length) {
+        const avg = (metrics.etas.reduce((a, b) => a + b, 0) / metrics.etas.length).toFixed(2);
+        const min = Math.min(...metrics.etas).toFixed(2);
+        const max = Math.max(...metrics.etas).toFixed(2);
+        document.getElementById('kpiAvgEta').textContent = `${avg} min`;
+        document.getElementById('kpiEtaRange').textContent = `Min: ${min}m | Max: ${max}m`;
+      }
+
+      if (metrics.speeds.length) {
+        const avgS = (metrics.speeds.reduce((a, b) => a + b, 0) / metrics.speeds.length).toFixed(1);
+        document.getElementById('kpiAvgSpeed').textContent = `${avgS} km/h`;
+      }
+
+      if (metrics.latencies.length) {
+        const sorted = [...metrics.latencies].sort((a, b) => a - b);
+        const avgL = Math.round(sorted.reduce((a, b) => a + b, 0) / sorted.length);
+        const p95 = sorted[Math.floor(sorted.length * 0.95)] ?? sorted[sorted.length - 1];
+        document.getElementById('kpiLatency').textContent = `${avgL} / ${p95} ms`;
+        if (elapsedSec > 0 && done > 0) {
+          document.getElementById('kpiThroughput').textContent = `Throughput: ${(done / elapsedSec).toFixed(2)} cases/s`;
+        }
+      }
+    }
+
+    async function waitForMissionArchive(emergencyId, timeoutMs = 15000) {
+      const start = Date.now();
+      while (Date.now() - start < timeoutMs) {
+        try {
+          const { data } = await api(`/api/history/${encodeURIComponent(emergencyId)}`);
+          if (data && data.final_status === 'COMPLETED') return data;
+        } catch (_) {}
+        await new Promise(r => setTimeout(r, 250));
+      }
+      return null;
+    }
+
+    async function runFunctionalScenariosOnly() {
+      resetAllMetrics();
+      await runFunctionalScenarios();
+      await refreshFleetAndHistory();
+    }
+
+    async function runFunctionalScenarios() {
+      logSys('Running core functional scenarios...');
+
+      try {
+        const { data, ms } = await api('/api/live');
+        const hasDsa = data.dsa && data.dsa.priority_queue && data.dsa.ambulance_heap;
+        addScenarioResult('System Health & DSA Initialization', Boolean(hasDsa), ms, `Provider=${data.traffic?.provider}, Ambulances=${data.ambulances?.length}, Hospitals=${data.hospitals?.length}`);
+      } catch (err) {
+        addScenarioResult('System Health & DSA Initialization', false, err.ms || 0, err.message);
+      }
+
+      for (const t of TYPE_META) {
+        try {
+          const { data, ms } = await api('/api/emergency', 'POST', {
+            patient_name: `FuncType_${t.code}`,
+            patient_age: 40,
+            patient_sex: 'Male',
+            emergency_type: t.code,
+            location_coordinates: { lat: 18.5283, lng: 73.8554 },
+            destination_hospital: 'AUTO'
+          });
+          const e = data.emergency;
+          const ok = e.type === t.name && e.priority === t.priority && e.eligible_ambulances.length > 0 && e.suitable_hospitals.length > 0;
+          addScenarioResult(`Type ${t.code} (${t.name}) Routing & Capability Match`, ok, ms, `Amb=${e.eligible_ambulances[0]?.ambulance_id} (${e.eligible_ambulances[0]?.eta_minutes}m), Hosp=${e.recommended_hospital?.name}`);
+          await api(`/api/emergency/${e.emergency_id}/cancel`, 'POST');
+        } catch (err) {
+          addScenarioResult(`Type ${t.code} (${t.name}) Routing & Capability Match`, false, err.ms || 0, err.message);
+        }
+      }
+
+      const createdIds = [];
+      try {
+        const t0 = performance.now();
+        const minor = await api('/api/emergency', 'POST', {
+          patient_name: 'Pri_Low', patient_age: 25, patient_sex: 'Female',
+          emergency_type: 0, location_coordinates: { lat: 18.5283, lng: 73.8554 }, destination_hospital: 'AUTO'
+        });
+        createdIds.push(minor.data.emergency.emergency_id);
+
+        const critical = await api('/api/emergency', 'POST', {
+          patient_name: 'Pri_High', patient_age: 62, patient_sex: 'Male',
+          emergency_type: 5, location_coordinates: { lat: 18.5280, lng: 73.8767 }, destination_hospital: 'AUTO'
+        });
+        createdIds.push(critical.data.emergency.emergency_id);
+
+        const nextRes = await api('/api/emergency/next');
+        const headIsCritical = nextRes.data.next?.emergency_id === critical.data.emergency.emergency_id;
+
+        let outOfOrderBlocked = false;
+        try {
+          await api(`/api/emergency/${minor.data.emergency.emergency_id}/dispatch`, 'POST', {
+            hospital_id: minor.data.emergency.recommended_hospital.hospital_id
+          });
+        } catch (e) {
+          outOfOrderBlocked = e.status === 409;
+        }
+        addScenarioResult(
+          'Priority Queue Strict Dispatch Ordering',
+          headIsCritical && outOfOrderBlocked,
+          Math.round(performance.now() - t0),
+          `Head=#${nextRes.data.next?.emergency_id} (${nextRes.data.next?.type}), Lower-priority dispatch blocked=${outOfOrderBlocked}`
+        );
+      } finally {
+        for (const id of createdIds) await api(`/api/emergency/${id}/cancel`, 'POST').catch(() => {});
+      }
+
+      try {
+        const t0 = performance.now();
+        const roads = await api('/api/roads?limit=3');
+        const edge = roads.data[0];
+        await api('/api/roads/block', 'POST', { source: edge.source, destination: edge.destination });
+        const blocked = await api(`/api/roads/condition?source=${encodeURIComponent(edge.source)}&destination=${encodeURIComponent(edge.destination)}`);
+        await api('/api/roads/open', 'POST', { source: edge.source, destination: edge.destination });
+        await api('/api/roads/travel-time', 'POST', { source: edge.source, destination: edge.destination, minutes: 3.5 });
+        const overridden = await api(`/api/roads/condition?source=${encodeURIComponent(edge.source)}&destination=${encodeURIComponent(edge.destination)}`);
+        await api('/api/roads/travel-time', 'POST', { source: edge.source, destination: edge.destination, minutes: edge.baseTime });
+        const ok = blocked.data.status === 1 && Number(overridden.data.time) === 3.5;
+        addScenarioResult('Road Block, Travel-Time Override & Restore', ok, Math.round(performance.now() - t0), `Edge ${edge.source}->${edge.destination}: blocked=${blocked.data.status}, override=${overridden.data.time}m, restored=${edge.baseTime}m`);
+      } catch (err) {
+        addScenarioResult('Road Block, Travel-Time Override & Restore', false, err.ms || 0, err.message);
+      }
+
+      try {
+        await api('/api/emergency', 'POST', { patient_name: '', emergency_type: 99 });
+        addScenarioResult('Invalid Emergency Payload Rejection (400)', false, 0, 'Expected 400 but succeeded');
+      } catch (err) {
+        addScenarioResult('Invalid Emergency Payload Rejection (400)', err.status === 400, err.ms || 0, `HTTP ${err.status}: ${err.message}`);
+      }
+    }
+
+    async function runMasterSystemSuite() {
+      abortRequested = false;
+      resetAllMetrics();
+      document.getElementById('btnRunMaster').disabled = true;
+      document.getElementById('btnStop').disabled = false;
+
+      const count = Math.max(1, Math.min(200, Number(document.getElementById('coordCount').value) || 100));
+      const mode = document.getElementById('execMode').value;
+      const testPoints = generatePuneCoordinates(count);
+      const suiteStart = performance.now();
+
+      try {
+        await runFunctionalScenarios();
+        logSys(`Starting ${count}-coordinate automated emergency & dispatch run (mode=${mode})...`);
+
+        for (let i = 0; i < testPoints.length; i++) {
+          if (abortRequested) {
+            logSys('Run aborted by user.');
+            break;
+          }
+
+          const pt = testPoints[i];
+          const typeObj = TYPE_META[pt.typeCode];
+          const caseStart = performance.now();
+
+          try {
+            const reg = await api('/api/emergency', 'POST', {
+              patient_name: `AutoPatient_${pt.index}`,
+              patient_age: 20 + (pt.index % 60),
+              patient_sex: pt.index % 2 === 0 ? 'Male' : 'Female',
+              emergency_type: pt.typeCode,
+              location_coordinates: { lat: pt.lat, lng: pt.lng },
+              destination_hospital: 'AUTO'
+            });
+
+            const e = reg.data.emergency;
+            const topAmb = e.eligible_ambulances?.[0] || null;
+            const topHosp = e.recommended_hospital || e.suitable_hospitals?.[0] || null;
+
+            const ambEta = topAmb ? Number(topAmb.eta_minutes) : null;
+            const ambDist = topAmb ? Number(topAmb.distance_km) : null;
+            const hospTime = topHosp ? Number(topHosp.travel_time_minutes) : null;
+            const impliedSpeed = (ambEta && ambEta > 0 && ambDist > 0)
+              ? Number((ambDist / (ambEta / 60)).toFixed(1))
+              : null;
+
+            const etaReasonable = ambEta !== null && ambEta >= 0 && ambEta < 45 && hospTime !== null && hospTime < 45;
+            if (etaReasonable) metrics.pass++; else metrics.fail++;
+
+            if (ambEta !== null) metrics.etas.push(ambEta);
+            if (impliedSpeed !== null) metrics.speeds.push(impliedSpeed);
+
+            const bucket = metrics.byType[pt.typeCode];
+            bucket.count++;
+            if (ambEta !== null) bucket.etas.push(ambEta);
+            if (hospTime !== null) bucket.hospTimes.push(hospTime);
+            if (impliedSpeed !== null) bucket.speeds.push(impliedSpeed);
+
+            let lifecycleLabel = 'REGISTERED';
+
+            if (mode === 'dispatch_complete' || mode === 'dispatch_cancel') {
+              await api(`/api/emergency/${e.emergency_id}/dispatch`, 'POST', {
+                hospital_id: topHosp.hospital_id
+              });
+              lifecycleLabel = 'DISPATCHED';
+
+              if (mode === 'dispatch_complete') {
+                const archived = await waitForMissionArchive(e.emergency_id, 15000);
+                if (archived) {
+                  lifecycleLabel = 'COMPLETED & ARCHIVED';
+                  metrics.pass++;
+                } else {
+                  lifecycleLabel = 'TIMEOUT -> CANCELLED';
+                  metrics.fail++;
+                  await api(`/api/emergency/${e.emergency_id}/cancel`, 'POST').catch(() => {});
+                }
+              } else {
+                await api(`/api/emergency/${e.emergency_id}/cancel`, 'POST');
+                lifecycleLabel = 'DISPATCHED -> CANCELLED';
+                metrics.pass++;
+              }
+            } else {
+              await api(`/api/emergency/${e.emergency_id}/cancel`, 'POST');
+              lifecycleLabel = 'AUDITED -> CANCELLED';
+            }
+
+            const totalCaseMs = Math.round(performance.now() - caseStart);
+            addCoordRow({
+              index: pt.index,
+              lat: pt.lat,
+              lng: pt.lng,
+              typeName: `${pt.typeCode} (${typeObj.name})`,
+              node: e.emergency_node,
+              ambId: topAmb?.ambulance_id,
+              ambEta,
+              ambDist,
+              speed: impliedSpeed,
+              hospName: topHosp?.name,
+              hospTime,
+              lifecycle: lifecycleLabel,
+              ok: etaReasonable,
+              ms: totalCaseMs
+            });
+          } catch (err) {
+            metrics.fail++;
+            addCoordRow({
+              index: pt.index,
+              lat: pt.lat,
+              lng: pt.lng,
+              typeName: `${pt.typeCode} (${typeObj.name})`,
+              node: '-',
+              ambId: '-',
+              ambEta: null,
+              ambDist: null,
+              speed: null,
+              hospName: '-',
+              hospTime: null,
+              lifecycle: `ERR: ${err.message}`,
+              ok: false,
+              ms: Math.round(performance.now() - caseStart)
+            });
+            logSys(`Case #${pt.index} (${pt.lat}, ${pt.lng}) failed: ${err.message}`);
+          }
+
+          const elapsedSec = (performance.now() - suiteStart) / 1000;
+          updateKpis(i + 1, testPoints.length, abortRequested ? 'Stopped' : 'Running...', elapsedSec);
+          renderTypeStatsTable();
+        }
+
+        const totalElapsed = (performance.now() - suiteStart) / 1000;
+        updateKpis(testPoints.length, testPoints.length, `Completed in ${totalElapsed.toFixed(1)}s`, totalElapsed);
+        await refreshFleetAndHistory();
+        logSys(`Master suite finished in ${totalElapsed.toFixed(2)}s — ${metrics.pass} PASS, ${metrics.fail} FAIL.`);
+      } finally {
+        document.getElementById('btnRunMaster').disabled = false;
+        document.getElementById('btnStop').disabled = true;
+      }
+    }
+
+    async function refreshFleetAndHistory() {
+      try {
+        const { data } = await api('/api/live');
+        const avail = (data.ambulances || []).filter(a => a.available).length;
+        document.getElementById('kpiFleet').textContent = `${avail} / ${(data.ambulances || []).length}`;
+        document.getElementById('kpiHistory').textContent = `Archived missions: ${data.history_count ?? 0}`;
+      } catch (_) {}
+    }
+
+    if (typeof io === 'function') {
+      const socket = io(API_BASE || undefined);
+      socket.on('system:update', (state) => {
+        const avail = (state.ambulances || []).filter(a => a.available).length;
+        document.getElementById('kpiFleet').textContent = `${avail} / ${(state.ambulances || []).length}`;
+        document.getElementById('kpiHistory').textContent = `Archived missions: ${state.history_count ?? 0}`;
+      });
+    } else {
+      logSys('Socket.IO client unavailable on this origin; open via http://localhost:3000/test.html for live Socket.IO events.');
+    }
+
+    resetAllMetrics();
+    refreshFleetAndHistory();
+  </script>
+</body>
+</html>

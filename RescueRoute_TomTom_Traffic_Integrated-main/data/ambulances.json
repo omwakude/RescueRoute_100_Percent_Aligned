@@ -3,8 +3,8 @@
     "id": "AMB-01",
     "type": "Basic",
     "status": "AVAILABLE",
-    "lat": 18.5285,
-    "lng": 73.855,
+    "lat": 18.528929,
+    "lng": 73.8554,
     "available": true,
     "capabilities": [
       "GENERAL"
@@ -14,8 +14,8 @@
     "id": "AMB-02",
     "type": "Advanced",
     "status": "AVAILABLE",
-    "lat": 18.52855,
-    "lng": 73.8551,
+    "lat": 18.527558,
+    "lng": 73.856117,
     "available": true,
     "capabilities": [
       "GENERAL",
@@ -26,8 +26,8 @@
     "id": "AMB-03",
     "type": "Cardiac",
     "status": "AVAILABLE",
-    "lat": 18.5286,
-    "lng": 73.85515,
+    "lat": 18.528421,
+    "lng": 73.853947,
     "available": true,
     "capabilities": [
       "GENERAL",
@@ -38,8 +38,8 @@
     "id": "AMB-04",
     "type": "ICU",
     "status": "BUSY",
-    "lat": 18.529,
-    "lng": 73.845,
+    "lat": 18.529371,
+    "lng": 73.856874,
     "available": false,
     "capabilities": [
       "GENERAL",
@@ -51,8 +51,8 @@
     "id": "AMB-05",
     "type": "Neonatal",
     "status": "AVAILABLE",
-    "lat": 18.52865,
-    "lng": 73.8552,
+    "lat": 18.526195,
+    "lng": 73.855007,
     "available": true,
     "capabilities": [
       "GENERAL",
@@ -63,8 +63,8 @@
     "id": "AMB-06",
     "type": "ICU",
     "status": "AVAILABLE",
-    "lat": 18.5287,
-    "lng": 73.85525,
+    "lat": 18.528922,
+    "lng": 73.854983,
     "available": true,
     "capabilities": [
       "GENERAL",
@@ -76,8 +76,8 @@
     "id": "AMB-07",
     "type": "Advanced",
     "status": "BUSY",
-    "lat": 18.532,
-    "lng": 73.865,
+    "lat": 18.528011,
+    "lng": 73.856535,
     "available": false,
     "capabilities": [
       "GENERAL",
@@ -88,8 +88,8 @@
     "id": "AMB-08",
     "type": "Basic",
     "status": "AVAILABLE",
-    "lat": 18.5265,
-    "lng": 73.858,
+    "lat": 18.527613,
+    "lng": 73.854004,
     "available": true,
     "capabilities": [
       "GENERAL"
@@ -99,8 +99,8 @@
     "id": "AMB-09",
     "type": "Cardiac",
     "status": "AVAILABLE",
-    "lat": 18.52875,
-    "lng": 73.8553,
+    "lat": 18.530055,
+    "lng": 73.856076,
     "available": true,
     "capabilities": [
       "GENERAL",
@@ -111,9 +111,1089 @@
     "id": "AMB-10",
     "type": "Neonatal",
     "status": "AVAILABLE",
-    "lat": 18.5288,
-    "lng": 73.85535,
+    "lat": 18.526224,
+    "lng": 73.856304,
     "available": true,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-11",
+    "type": "Basic",
+    "status": "BUSY",
+    "lat": 18.528658,
+    "lng": 73.854593,
+    "available": false,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-12",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.528666,
+    "lng": 73.856629,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-13",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.526917,
+    "lng": 73.854554,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-14",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.53023,
+    "lng": 73.854953,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-15",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.526946,
+    "lng": 73.857431,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-16",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.528178,
+    "lng": 73.854404,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-17",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.529317,
+    "lng": 73.856304,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-18",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.526595,
+    "lng": 73.855474,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-19",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.529777,
+    "lng": 73.85385,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-20",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.528186,
+    "lng": 73.857993,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-21",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.528629,
+    "lng": 73.8767,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-22",
+    "type": "Advanced",
+    "status": "BUSY",
+    "lat": 18.527258,
+    "lng": 73.877417,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-23",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.528121,
+    "lng": 73.875247,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-24",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.529071,
+    "lng": 73.878174,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-25",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.525895,
+    "lng": 73.876307,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-26",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.528622,
+    "lng": 73.876283,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-27",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.527711,
+    "lng": 73.877835,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-28",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.527313,
+    "lng": 73.875304,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-29",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.529755,
+    "lng": 73.877376,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-30",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.525924,
+    "lng": 73.877604,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-31",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.528358,
+    "lng": 73.875893,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-32",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.528366,
+    "lng": 73.877929,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-33",
+    "type": "Cardiac",
+    "status": "BUSY",
+    "lat": 18.526617,
+    "lng": 73.875854,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-34",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.52993,
+    "lng": 73.876253,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-35",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.526646,
+    "lng": 73.878731,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-36",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.527878,
+    "lng": 73.875704,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-37",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.529017,
+    "lng": 73.877604,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-38",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.526295,
+    "lng": 73.876774,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-39",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.529477,
+    "lng": 73.87515,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-40",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.527886,
+    "lng": 73.879293,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-41",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.527929,
+    "lng": 73.8732,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-42",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.526558,
+    "lng": 73.873917,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-43",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.527421,
+    "lng": 73.871747,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-44",
+    "type": "ICU",
+    "status": "BUSY",
+    "lat": 18.528371,
+    "lng": 73.874674,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-45",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.525195,
+    "lng": 73.872807,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-46",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.527922,
+    "lng": 73.872783,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-47",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.527011,
+    "lng": 73.874335,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-48",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.526613,
+    "lng": 73.871804,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-49",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.529055,
+    "lng": 73.873876,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-50",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.525224,
+    "lng": 73.874104,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-51",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.527658,
+    "lng": 73.872393,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-52",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.527666,
+    "lng": 73.874429,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-53",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.525917,
+    "lng": 73.872354,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-54",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.52923,
+    "lng": 73.872753,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-55",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.525946,
+    "lng": 73.875231,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-56",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.527178,
+    "lng": 73.872204,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-57",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.528317,
+    "lng": 73.874104,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-58",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.525595,
+    "lng": 73.873274,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-59",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.528777,
+    "lng": 73.87165,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-60",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.527186,
+    "lng": 73.875793,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-61",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.522629,
+    "lng": 73.868,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-62",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.521258,
+    "lng": 73.868717,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-63",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.522121,
+    "lng": 73.866547,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-64",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.523071,
+    "lng": 73.869474,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-65",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.519895,
+    "lng": 73.867607,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-66",
+    "type": "Basic",
+    "status": "BUSY",
+    "lat": 18.522622,
+    "lng": 73.867583,
+    "available": false,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-67",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.521711,
+    "lng": 73.869134,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-68",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.521313,
+    "lng": 73.866604,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-69",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.523755,
+    "lng": 73.868676,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-70",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.519924,
+    "lng": 73.868904,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-71",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.522358,
+    "lng": 73.867193,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-72",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.522366,
+    "lng": 73.869229,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-73",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.520617,
+    "lng": 73.867154,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-74",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.52393,
+    "lng": 73.867553,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-75",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.520646,
+    "lng": 73.87003,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-76",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.521878,
+    "lng": 73.867004,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-77",
+    "type": "Advanced",
+    "status": "BUSY",
+    "lat": 18.523017,
+    "lng": 73.868904,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-78",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.520295,
+    "lng": 73.868074,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-79",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.523477,
+    "lng": 73.86645,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-80",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.521886,
+    "lng": 73.870593,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-81",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.527129,
+    "lng": 73.873,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-82",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.525758,
+    "lng": 73.873717,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-83",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.526621,
+    "lng": 73.871547,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-84",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.527571,
+    "lng": 73.874474,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-85",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.524395,
+    "lng": 73.872607,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-86",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.527122,
+    "lng": 73.872583,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-87",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.526211,
+    "lng": 73.874135,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-88",
+    "type": "Cardiac",
+    "status": "BUSY",
+    "lat": 18.525813,
+    "lng": 73.871604,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-89",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.528255,
+    "lng": 73.873676,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-90",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.524424,
+    "lng": 73.873904,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-91",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.526858,
+    "lng": 73.872193,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-92",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.526866,
+    "lng": 73.874229,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-93",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.525117,
+    "lng": 73.872154,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-94",
+    "type": "ICU",
+    "status": "AVAILABLE",
+    "lat": 18.52843,
+    "lng": 73.872553,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-95",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.525146,
+    "lng": 73.875031,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "NEONATAL_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-96",
+    "type": "Basic",
+    "status": "AVAILABLE",
+    "lat": 18.526378,
+    "lng": 73.872004,
+    "available": true,
+    "capabilities": [
+      "GENERAL"
+    ]
+  },
+  {
+    "id": "AMB-97",
+    "type": "Advanced",
+    "status": "AVAILABLE",
+    "lat": 18.527517,
+    "lng": 73.873904,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-98",
+    "type": "Cardiac",
+    "status": "AVAILABLE",
+    "lat": 18.524795,
+    "lng": 73.873074,
+    "available": true,
+    "capabilities": [
+      "GENERAL",
+      "CARDIAC_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-99",
+    "type": "ICU",
+    "status": "BUSY",
+    "lat": 18.527977,
+    "lng": 73.87145,
+    "available": false,
+    "capabilities": [
+      "GENERAL",
+      "TRAUMA_SUPPORT",
+      "ICU_SUPPORT"
+    ]
+  },
+  {
+    "id": "AMB-100",
+    "type": "Neonatal",
+    "status": "BUSY",
+    "lat": 18.526386,
+    "lng": 73.875593,
+    "available": false,
     "capabilities": [
       "GENERAL",
       "NEONATAL_SUPPORT"
